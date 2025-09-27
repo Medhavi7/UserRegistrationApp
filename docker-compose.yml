@@ -1,0 +1,41 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: getcovered_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: getcovered_db
+      MYSQL_USER: getcovered
+      MYSQL_PASSWORD: strongpassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  backend:
+    build: ./backend
+    container_name: getcovered_backend
+    restart: always
+    env_file:
+      - ./backend/.env
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+  frontend:
+    build: ./frontend
+    container_name: getcovered_frontend
+    restart: always
+    env_file:
+      - ./frontend/.env
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    stdin_open: true
+    tty: true
+
+volumes:
+  db_data:
