@@ -1,0 +1,14 @@
+fastapi
+uvicorn[standard]
+argon2-cffi
+authlib
+python-dotenv
+PyJWT
+SQLAlchemy
+pymysql
+passlib[bcrypt]
+python-jose
+requests
+httpx
+python-multipart
+itsdangerous==2.1.2
